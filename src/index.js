@@ -9,14 +9,44 @@ const LOGIN_URL = 'https://dev.api.pitch.space/api/auth/login';
 
 const API_KEY = process.env.PITCH_API_KEY || 'cf523484-4327-4092-ab63-34f5b8d74013';
 
+const allowedOrigins = new Set([
+  'http://localhost:8081',
+  'http://localhost:3000',
+  'http://localhost:5173'
+]);
+
 const corsOptions = {
-  origin: true,
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.has(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(null, false);
+  },
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 204
 };
 
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+
+  if (!origin || allowedOrigins.has(origin)) {
+    res.header('Access-Control-Allow-Origin', origin || '*');
+    res.header('Vary', 'Origin');
+  }
+
+  res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+
+  return next();
+});
+
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
 app.use(express.json());
 
 const getDeviceId = () => {
