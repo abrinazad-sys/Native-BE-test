@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import os from 'os';
 import crypto from 'crypto';
 
@@ -8,6 +9,14 @@ const LOGIN_URL = 'https://dev.api.pitch.space/api/auth/login';
 
 const API_KEY = process.env.PITCH_API_KEY || 'cf523484-4327-4092-ab63-34f5b8d74013';
 
+const corsOptions = {
+  origin: true,
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 const getDeviceId = () => {
