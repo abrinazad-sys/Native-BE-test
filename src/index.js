@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const LOGIN_URL = 'https://dev.api.pitch.space/api/auth/login';
 
-const API_KEY = process.env.PITCH_API_KEY || '0ee243ae-b951-444d-9b68-978f004be54e';
+const API_KEY = process.env.PITCH_API_KEY || '6cb78b7a-537a-49cc-b6ff-d3cb3a3ae8e7';
 
 const allowedOrigins = new Set([
   'http://localhost:8081',
