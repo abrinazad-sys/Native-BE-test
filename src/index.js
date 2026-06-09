@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const LOGIN_URL = 'https://dev.api.pitch.space/api/auth/login';
 
-const API_KEY = process.env.PITCH_API_KEY || '6cb78b7a-537a-49cc-b6ff-d3cb3a3ae8e7';
+const API_KEY = process.env.PITCH_API_KEY || '6cb78b7a-537a-49cc-b6ff-d3cb3a3ae8e8';
 
 const allowedOrigins = new Set([
   'http://localhost:8081',
@@ -99,27 +99,6 @@ app.post('/api/login', async (req, res) => {
       error: 'Internal server error',
       message: error.message
     });
-  }
-});
-
-// Point-for-action endpoint - awards points for a quest action
-app.post('/api/point-for-action', async (req, res) => {
-  try {
-    const { email, actionName } = req.body;
-    if (!email || !actionName) {
-      return res.status(400).json({ error: 'email and actionName required' });
-    }
-    // Simple mock: each action gives 10 points
-    const pointsAwarded = 10;
-    return res.status(200).json({
-      data: {
-        point: pointsAwarded,
-        message: `Awarded ${pointsAwarded} points for ${actionName}`,
-      },
-    });
-  } catch (err) {
-    console.error('Point action error:', err);
-    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
