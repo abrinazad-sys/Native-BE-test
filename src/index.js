@@ -102,6 +102,27 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+// Point-for-action endpoint - awards points for a quest action
+app.post('/api/point-for-action', async (req, res) => {
+  try {
+    const { email, actionName } = req.body;
+    if (!email || !actionName) {
+      return res.status(400).json({ error: 'email and actionName required' });
+    }
+    // Simple mock: each action gives 10 points
+    const pointsAwarded = 10;
+    return res.status(200).json({
+      data: {
+        point: pointsAwarded,
+        message: `Awarded ${pointsAwarded} points for ${actionName}`,
+      },
+    });
+  } catch (err) {
+    console.error('Point action error:', err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Pitch Space Auth Service listening on http://localhost:${PORT}`);
 });
