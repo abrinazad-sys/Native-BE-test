@@ -60,7 +60,7 @@ const getPlatform = () => {
   return `${platform}-${arch}`;
 };
 
-app.post('/api/login', async (req, res) => {
+app.post('/api/native/initiate', async (req, res) => {
   try {
     const email = req.body.email;
 
