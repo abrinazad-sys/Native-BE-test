@@ -11,6 +11,7 @@ const API_KEY = process.env.PITCH_API_KEY || '6cb78b7a-537a-49cc-b6ff-d3cb3a3ae8
 
 const allowedOrigins = new Set([
   'http://localhost:8081',
+  'http://localhost:8082',
   'http://localhost:3000',
   'http://localhost:5173'
 ]);
