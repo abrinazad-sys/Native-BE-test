@@ -71,7 +71,7 @@ app.post('/api/native/initiate', async (req, res) => {
 
     const payload = {
       email,
-      circleName: 'Era Test',
+      circleName: req.body.circleName || 'Era Test',
       apiKey: API_KEY,
       deviceId: getDeviceId(),
       platform: getPlatform()
